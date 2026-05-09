@@ -5,6 +5,6 @@ export const AUTH_ROUTES: Routes = [
     path: '',
     loadComponent: () =>
       import('./pages/login/login')
-        .then(m => m.Login)
+        .then(m => m.LoginComponent)
   }
 ];
