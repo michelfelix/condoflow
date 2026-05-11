@@ -17,5 +17,5 @@ export const routes: Routes = [
   loadChildren: () =>
     import('./features/dashboard/dashboard.routes')
       .then(m => m.DASHBOARD_ROUTES)
-}
+  }
 ];
