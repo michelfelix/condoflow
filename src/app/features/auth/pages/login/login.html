@@ -1,3 +1,66 @@
-<button (click)="onLogin()">
-  Login
-</button>
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+  <div>
+
+    <input
+      type="email"
+      placeholder="Email"
+      formControlName="email"
+    />
+
+    @if(
+      loginForm.get('email')?.invalid &&
+      loginForm.get('email')?.touched
+    ) {
+
+      <div>
+
+        @if(loginForm.get('email')?.errors?.['required']) {
+          <p>Email obrigatório</p>
+        }
+
+        @if(loginForm.get('email')?.errors?.['email']) {
+          <p>Email inválido</p>
+        }
+
+      </div>
+    }
+
+  </div>
+
+  <div>
+
+    <input
+      type="password"
+      placeholder="Senha"
+      formControlName="password"
+    />
+
+    @if(
+      loginForm.get('password')?.invalid &&
+      loginForm.get('password')?.touched
+    ) {
+
+      <div>
+
+        @if(loginForm.get('password')?.errors?.['required']) {
+          <p>Senha obrigatória</p>
+        }
+
+        @if(loginForm.get('password')?.errors?.['minlength']) {
+          <p>Mínimo 6 caracteres</p>
+        }
+
+      </div>
+    }
+
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="loginForm.invalid"
+  >
+    Entrar
+  </button>
+
+</form>
