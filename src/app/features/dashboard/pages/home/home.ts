@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { CondominiumService } from '../../../../core/services/condominium/condominium';
 import { Condominium } from '../../../../core/models/condominium.model';
 
@@ -22,7 +22,7 @@ export class HomeComponent {
 
   ngOnInit() {
     this.CondominiumService
-    .getCondominiums()
+    .getCondominiums('')
     .subscribe(data => {
 
       this.condominiums = data;
@@ -36,12 +36,18 @@ export class HomeComponent {
 
       debounceTime(500),
 
-      distinctUntilChanged()
+      distinctUntilChanged(),
+
+      switchMap(searchTerm =>
+        this.CondominiumService.getCondominiums(searchTerm || '')
+      )
 
     )
-    .subscribe(value => {
+    .subscribe(data => {
 
-      console.log('Buscar:', value);
+      this.condominiums = data;
+
+      console.log(data);
 
     });
   }

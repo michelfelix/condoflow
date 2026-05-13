@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Condominium } from '../../models/condominium.model';
 
@@ -11,11 +11,22 @@ export class CondominiumService {
 
   private http = inject(HttpClient);
 
-  getCondominiums(): Observable<Condominium[]> {
+  getCondominiums(searchTerm: string) {
 
-    return this.http.get<Condominium[]>(
+  return this.http
+    .get<Condominium[]>(
       'https://jsonplaceholder.typicode.com/users'
-    );
+    )
+    .pipe(
 
-  }
+      map(condominiums =>
+        condominiums.filter(condo =>
+          condo.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+      )
+
+    );
+}
 }
