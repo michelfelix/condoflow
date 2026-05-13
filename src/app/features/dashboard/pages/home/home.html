@@ -3,3 +3,12 @@
   placeholder="Buscar condomínio..."
   [formControl]="searchControl"
 />
+
+@for(condo of condominiums; track condo.id) {
+
+  <div>
+    <h3>{{ condo.name }}</h3>
+    <p>{{ condo.address.city }}</p>
+  </div>
+
+}
