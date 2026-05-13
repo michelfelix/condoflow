@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, finalize, tap } from 'rxjs/operators';
 import { CondominiumService } from '../../../../core/services/condominium/condominium';
 import { Condominium } from '../../../../core/models/condominium.model';
 
@@ -15,6 +15,8 @@ export class HomeComponent {
   constructor(
     private CondominiumService: CondominiumService
   ){}
+
+  isLoading = false;
 
   condominiums: Condominium[] = [];
 
@@ -38,16 +40,24 @@ export class HomeComponent {
 
       distinctUntilChanged(),
 
-      switchMap(searchTerm =>
-        this.CondominiumService.getCondominiums(searchTerm || '')
-      )
+      tap(() => {
+        this.isLoading = true;
+      }),
 
+      switchMap(searchTerm =>
+        this.CondominiumService
+          .getCondominiums(searchTerm || '')
+          .pipe(
+
+            finalize(() => {
+              this.isLoading = false;
+            })
+          )
+      )
     )
     .subscribe(data => {
 
       this.condominiums = data;
-
-      console.log(data);
 
     });
   }
