@@ -23,6 +23,8 @@ export class HomeComponent {
 
   condominiums: Condominium[] = [];
 
+  favorites: Condominium[] = [];
+
   searchControl = new FormControl('');
 
   ngOnInit() {
@@ -69,5 +71,19 @@ export class HomeComponent {
       this.condominiums = data;
 
     });
+  }
+  onFavorite(condominium: Condominium): void {
+
+    const alreadyExists =
+      this.favorites.some(
+        favorites => favorites.id === condominium.id
+      );
+
+    if(alreadyExists) {
+      return;
+    }
+
+    this.favorites.push(condominium);
+
   }
 }

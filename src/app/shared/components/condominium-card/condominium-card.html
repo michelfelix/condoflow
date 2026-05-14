@@ -1,9 +1,13 @@
 <div class="card">
 
-  <h3>{{ condominium.name }}</h3>
+    <h3>{{ condominium.name }}</h3>
 
-  <p>
+    <p>
     {{ condominium.address.city }}
-  </p>
+    </p>
+
+    <button (click)="onFavorite()">
+        Favoritar
+    </button>
 
 </div>

@@ -19,7 +19,16 @@
 @for(condo of condominiums; track condo.id) {
 
   <app-condominium-card
-    [condominium]="condo">
+    [condominium]="condo"
+    (favorite)="onFavorite($event)">
   </app-condominium-card>
+  
+}
+
+<h2>Favoritos</h2>
+
+  @for(favorite of favorites; track favorite.id) {
+
+  <p>{{ favorite.name }}</p>
 
 }

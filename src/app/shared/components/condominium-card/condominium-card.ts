@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Condominium } from '../../../core/models/condominium.model';
 
 @Component({
@@ -9,4 +9,11 @@ import { Condominium } from '../../../core/models/condominium.model';
 })
 export class CondominiumCard {
   @Input() condominium!: Condominium;
+  @Output() favorite = new EventEmitter<Condominium>();
+
+  onFavorite(): void {
+
+    this.favorite.emit(this.condominium);
+
+  }
 }
