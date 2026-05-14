@@ -3,11 +3,19 @@
   placeholder="Buscar condomínio..."
   [formControl]="searchControl"
 />
+
 @if(isLoading) {
 
   <p>Carregando...</p>
 
 }
+
+@if(errorMessage) {
+
+  <p>{{ errorMessage }}</p>
+
+}
+
 @for(condo of condominiums; track condo.id) {
 
   <div>

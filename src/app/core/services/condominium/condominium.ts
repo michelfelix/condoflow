@@ -15,7 +15,7 @@ export class CondominiumService {
 
   return this.http
     .get<Condominium[]>(
-      'https://jsonplaceholder.typicode.com/users'
+      'https://jsonplaceholder.typicode.com/users-error'
     )
     .pipe(
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap, finalize, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, finalize, tap, catchError, of  } from 'rxjs';
 import { CondominiumService } from '../../../../core/services/condominium/condominium';
 import { Condominium } from '../../../../core/models/condominium.model';
 
@@ -17,6 +17,8 @@ export class HomeComponent {
   ){}
 
   isLoading = false;
+
+  errorMessage = '';
 
   condominiums: Condominium[] = [];
 
@@ -48,12 +50,18 @@ export class HomeComponent {
         this.CondominiumService
           .getCondominiums(searchTerm || '')
           .pipe(
+            catchError(() => {
+              this.errorMessage =
+                'Erro ao buscar condomínios';
+              return of([]);
+            }),
 
             finalize(() => {
               this.isLoading = false;
             })
           )
       )
+
     )
     .subscribe(data => {
 
