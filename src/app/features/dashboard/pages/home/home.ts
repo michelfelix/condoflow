@@ -85,5 +85,17 @@ export class HomeComponent {
 
     this.favorites.push(condominium);
 
+    this.condominiums =
+    this.condominiums.map(condo =>
+
+      condo.id === condominium.id
+        ? {
+            ...condo,
+            favorite: !condo.favorite
+          }
+        : condo
+
+    );
+
   }
 }

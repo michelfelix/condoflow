@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Condominium } from '../../../core/models/condominium.model';
 
 @Component({
   selector: 'app-condominium-card',
   imports: [],
   templateUrl: './condominium-card.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './condominium-card.scss',
 })
 export class CondominiumCard {

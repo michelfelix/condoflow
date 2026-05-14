@@ -3,7 +3,11 @@
     <h3>{{ condominium.name }}</h3>
 
     <p>
-    {{ condominium.address.city }}
+        {{ condominium.address.city }}
+    </p>
+    
+    <p>
+        Favorito: {{ condominium.favorite }}
     </p>
 
     <button (click)="onFavorite()">

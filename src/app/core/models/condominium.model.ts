@@ -4,4 +4,5 @@ export interface Condominium {
   address: {
       city: string;
   }
+  favorite?: boolean;
 }
